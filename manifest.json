@@ -1,0 +1,25 @@
+{
+    "name": "Youtube Fartnite Filter",
+    "version": "0.1",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["popup.js"]
+        }
+    ],
+
+    "description": "Filter out all Fortnite video on the youtube you don't want to see!",
+    "icons": {
+        "400": "icon.png"
+    },
+
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "https://www.youtube.com/*"
+    ]
+
+}
