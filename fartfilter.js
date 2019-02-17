@@ -16,6 +16,7 @@ var observer = new MutationObserver(function(mutations, observer) {
 });
 
 observer.observe(document.querySelector("ytd-two-column-browse-results-renderer"), {
+    attributes: true,
     subtree: true
 });
 
