@@ -8,5 +8,17 @@ function fartfilter() {
     }
 }
 
-document.addEventListener("yt-navigate-finish", fartfilter);
-fartfilter();
+
+MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+var observer = new MutationObserver(function(mutations, observer) {
+    fartfilter();
+});
+
+observer.observe(document.querySelector("ytd-two-column-browse-results-renderer"), {
+    subtree: true
+});
+
+
+//document.addEventListener("yt-navigate-finish", fartfilter);
+//fartfilter();
