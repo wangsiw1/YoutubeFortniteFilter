@@ -14,9 +14,9 @@ function fartfilter() {
         var tmp = x[i].querySelector("#dismissable > #details > #meta > h3 > #video-title");
         if (tmp.innerHTML.toLowerCase().includes("fortnite")) {
             x[i].parentElement.removeChild(x[i]);
-            removed++;
+            //removed++;
         }
-        checked++;
+        //checked++;
     }
 }
 
@@ -24,6 +24,7 @@ var observer = new MutationObserver(function(mutations, observer) {
     if (window.location.href != currentPage) {
         checked = 0;
         removed = 0;
+        count = 0;
         currentPage = window.location.href;
     }
     fartfilter();
@@ -35,4 +36,12 @@ observer.observe(document.querySelector("ytd-app"), {
     subtree: true
 });
 
-document.addEventListener("yt-navigate-finish", fartfilter);
+document.addEventListener("yt-navigate-finish", function () {
+    if (window.location.href != currentPage) {
+        checked = 0;
+        removed = 0;
+        count = 0;
+        currentPage = window.location.href;
+    }
+    fartfilter();
+});
