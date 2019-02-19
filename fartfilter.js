@@ -1,25 +1,38 @@
+var checked = 0;
+var removed = 0;
+var currentPage = window.location.href;
+
+var count = 0;
+
 function fartfilter() {
+    count++;
+    /* console.log("count: " + count);
+    console.log(checked);
+    console.log(removed); */
     var x = document.getElementsByTagName("ytd-grid-video-renderer");
-    for (var i = 0; i < x.length; i++) {
+    for (var i = checked-removed; i < x.length; i++) {
         var tmp = x[i].querySelector("#dismissable > #details > #meta > h3 > #video-title");
         if (tmp.innerHTML.toLowerCase().includes("fortnite")) {
             x[i].parentElement.removeChild(x[i]);
+            removed++;
         }
+        checked++;
     }
 }
 
-
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
 var observer = new MutationObserver(function(mutations, observer) {
+    if (window.location.href != currentPage) {
+        checked = 0;
+        removed = 0;
+        currentPage = window.location.href;
+    }
     fartfilter();
+    // console.log(currentPage);
 });
 
-observer.observe(document.querySelector("ytd-two-column-browse-results-renderer"), {
+observer.observe(document.querySelector("ytd-app"), {
     attributes: true,
     subtree: true
 });
 
-
-//document.addEventListener("yt-navigate-finish", fartfilter);
-//fartfilter();
+document.addEventListener("yt-navigate-finish", fartfilter);
