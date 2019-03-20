@@ -10,11 +10,11 @@ function fartfilter() {
     console.log(checked);
     console.log(removed); */
     var x = document.getElementsByTagName("ytd-grid-video-renderer");
-    for (var i = checked-removed; i < x.length; i++) {
+    for (var i = 0; i < x.length; i++) {
         var tmp = x[i].querySelector("#dismissable > #details > #meta > h3 > #video-title");
         if (tmp.innerHTML.toLowerCase().includes("fortnite")) {
             x[i].parentElement.removeChild(x[i]);
-            //removed++;
+            removed++;
         }
         //checked++;
     }
@@ -28,6 +28,9 @@ var observer = new MutationObserver(function(mutations, observer) {
         currentPage = window.location.href;
     }
     fartfilter();
+    chrome.runtime.sendMessage({text: removed.toString()}, function(response) {
+        console.log("Response: ", response);
+    });
     // console.log(currentPage);
 });
 
@@ -44,4 +47,7 @@ document.addEventListener("yt-navigate-finish", function () {
         currentPage = window.location.href;
     }
     fartfilter();
+    chrome.runtime.sendMessage({text: removed.toString()}, function(response) {
+        console.log("Response: ", response);
+    });
 });
